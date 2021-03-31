@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '../views/Tabs.vue';
 import SignIn from '../modules/connexion/signIn.vue';
+import ForgotPassword from '../modules/connexion/forgotPassword.vue';
+import SingUp from '../modules/connexion/signUp.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/signIn'
   },
   {
     path: '/signIn',
@@ -15,28 +16,15 @@ const routes: Array<RouteRecordRaw> = [
     component: SignIn
   },
   {
-    path: '/tabs/',
-    component: Tabs,
-    children: [
-      {
-        path: '',
-        redirect: '/tabs/tab1'
-      },
-      {
-        path: 'tab1',
-        component: () => import('@/views/Tab1.vue')
-      },
-      {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
-      },
-      {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
-      }
-    ]
+    path: '/forgotPassword',
+    name: 'ForgotPassword',
+    component: ForgotPassword
   },
-
+  {
+    path: '/signUp',
+    name: 'SignUp',
+    component: SingUp
+  }
 ]
 
 const router = createRouter({
