@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Tab3.vue')
       }
     ]
+  },
+  {
+    path: '/bars/',
+    component: () => import('@/modules/bars/barList.vue'),
   }
 ]
 
