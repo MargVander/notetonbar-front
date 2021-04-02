@@ -1,38 +1,44 @@
 <template>
   <ion-page>
-    <ion-content>
-      <form @submit.prevent="onSubmit" novalidate>
-        <ion-item>
-          <ion-label position="floating"> Pseudo </ion-label>
-          <ion-input type="text" v-model="v$.pseudo.$model" />
-        </ion-item>
+    <ion-content class="test">
+      <div class="body" />
 
-        <ion-item>
-          <ion-label position="floating"> Mail </ion-label>
-          <ion-input type="text" v-model="v$.mail.$model" />
-        </ion-item>
+      <div class="bodyForm">
+        <form @submit.prevent="onSubmit" class="">
+          <ion-item>
+            <ion-label position="floating"> Pseudo </ion-label>
+            <ion-input type="text" v-model="v$.pseudo.$model" />
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="floating"> Mot de passe </ion-label>
-          <ion-input type="password" v-model="v$.password.$model" />
-        </ion-item>
+          <ion-item>
+            <ion-label position="floating"> Mail </ion-label>
+            <ion-input type="text" v-model="v$.mail.$model" />
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="floating"> age </ion-label>
-          <ion-input type="text" v-model="v$.age.$model" />
-        </ion-item>
+          <ion-item>
+            <ion-label position="floating"> Mot de passe </ion-label>
+            <ion-input type="password" v-model="v$.password.$model" />
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="floating"> Avatar </ion-label>
-          <ion-input type="text" v-model="v$.avatar.$model" />
-        </ion-item>
+          <ion-item>
+            <ion-label position="floating"> age </ion-label>
+            <ion-input type="number" v-model="v$.age.$model" />
+          </ion-item>
 
-        <div class="center">
-          <ion-button type="submit">
-            s'inscrire
-          </ion-button>
-        </div>
-      </form>
+          <ion-item>
+            <ion-label position="floating"> Avatar </ion-label>
+            <ion-input type="file" v-model="v$.avatar.$model" />
+          </ion-item>
+
+          <div class="center">
+            <ion-button type="submit">
+              s'inscrire
+            </ion-button>
+          </div>
+        </form>
+      </div>
+
+      <div class="body" />
     </ion-content>
   </ion-page>
 </template>
@@ -49,12 +55,13 @@ import {
 import {
   required,
   email,
-  numeric,
+  integer,
   minValue,
   minLength,
 } from "@vuelidate/validators";
 import { reactive, toRef } from "vue";
 import useVuelidate from "@vuelidate/core";
+import loginService from "./services/loginService";
 export default {
   name: "SignUp",
   components: {
@@ -70,7 +77,7 @@ export default {
       pseudo: "",
       mail: "",
       password: "",
-      age: "",
+      age: 0,
       avatar: "",
     });
 
@@ -78,7 +85,7 @@ export default {
       pseudo: { required },
       mail: { email, required },
       password: { required, minLength: minLength(8) },
-      age: { numeric, minValue: minValue(0) },
+      age: { integer, minValue: minValue(0) },
       avatar: {},
     };
 
@@ -92,7 +99,9 @@ export default {
 
     const onSubmit = () => {
       v$.value.$touch();
-      console.log(state);
+      console.log(v$);
+      if (v$.value.$invalid) return;
+      loginService.signUp(state);
     };
 
     return { v$, onSubmit };
@@ -103,5 +112,12 @@ export default {
 <style scoped>
 .center {
   text-align: center;
+}
+.body {
+  height: 20%;
+}
+
+.bodyForm {
+  height: 60%;
 }
 </style>

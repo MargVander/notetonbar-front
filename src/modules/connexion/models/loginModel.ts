@@ -1,4 +1,4 @@
-export default class loginModel {
+export default class LoginModel {
     pseudo: string
     password: string
 

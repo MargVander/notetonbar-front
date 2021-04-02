@@ -2,13 +2,13 @@
   <ion-page>
     <ion-content>
       <div class="body" />
-      <div class="body">
+      <div class="body test">
         <ion-grid>
           <ion-row>
             <ion-col size="2" />
 
             <ion-col>
-              <form @submit.prevent="onSubmit">
+              <form @submit.prevent="onSubmit" class="test try">
                 <ion-item class="fontSize">
                   <ion-label position="floating"> Pseudo :</ion-label>
                   <ion-input type="text" v-model="v$.pseudo.$model" />
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <div class="body flex">
+      <div class="body flex mdp">
         <ion-nav-link id="forgotPassword" router-link="ForgotPassword">
           mot de passe oublié
         </ion-nav-link>
@@ -65,7 +65,7 @@ import {
 import { reactive, toRef } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-//import loginService from "./services/loginService";
+import loginService from "./services/loginService";
 export default {
   name: "SignIn",
   components: {
@@ -101,7 +101,7 @@ export default {
       if (v$.value.$invalid) return;
       console.log(v$);
 
-      //loginService.login(state);
+      loginService.login(state);
     };
     return { v$, onSubmit };
   },
@@ -127,5 +127,11 @@ export default {
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
+}
+
+.mdp {
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: space-between;
 }
 </style>

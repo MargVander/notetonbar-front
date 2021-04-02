@@ -25,6 +25,7 @@ import { IonContent, IonPage, IonLabel, IonItem, IonInput } from "@ionic/vue";
 import { ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
+import loginService from "./services/loginService";
 
 export default {
   name: "ForgotPassword",
@@ -44,8 +45,9 @@ export default {
 
     const onSubmit = () => {
       v$.value.$touch();
-      console.log(mail.value);
+      if (v$.value.$invalid) return;
       console.log(v$);
+      loginService.forgotMail(mail.value);
     };
     return { v$, onSubmit };
   },
