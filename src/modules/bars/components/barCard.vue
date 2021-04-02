@@ -8,7 +8,8 @@
           <div class="card-content">
               <div class="flex">
               <ion-card-title>{{bar.name}}</ion-card-title>
-              <star-rating :rating="3" :star-size="20" :show-rating="false" :read-only="true" />
+              <star-rating v-if="bar.rating" :rating="bar.rating.avg_rating" :star-size="20" :show-rating="false" :read-only="true" :increment="0.1" />
+              <star-rating v-if="!bar.rating" :rating="0" :star-size="20" :show-rating="false" :read-only="true" />
               </div>
               <ion-card-subtitle>{{bar.address}} - {{bar.zip_code}} - {{bar.city}}</ion-card-subtitle>
               <ion-card-content>{{bar.description}}</ion-card-content>
@@ -59,6 +60,7 @@ ion-card .card-img {
     position: relative;
 }
 ion-card-title {
+  color: white;
   font-size: 20px;
   width: 55%;
 }
