@@ -31,7 +31,22 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/bars/',
-    component: () => import('@/modules/bars/barList.vue'),
+    component: Tabs,
+    children: [
+      {
+        path: '',
+        redirect: '/bars/list'
+      },
+      {
+        path: 'list',
+        component: () => import('@/modules/bars/barList.vue'),
+      },
+      {
+        path: ':id',
+        name: 'detail',
+        component: () => import('@/modules/bars/barDetail.vue')
+      },
+    ]
   }
 ]
 

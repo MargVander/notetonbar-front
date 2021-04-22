@@ -31,10 +31,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.test{
-  --ion-background-color: #4C4D50;
-  --ion-text-color: white;
-}
-</style>
