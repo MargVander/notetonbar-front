@@ -7,8 +7,10 @@
 <script>
 import BarCard from "./components/barCard";
 import BarService from "./services/BarService"
+
+import { IonContent } from "@ionic/vue";
+
 export default {
-  name: "Bars",
   components: {
     BarCard,
   },
