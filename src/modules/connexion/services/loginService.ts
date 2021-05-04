@@ -17,7 +17,7 @@ export default {
     },
 
     forgotPassword(mail: string) {
-        return fetch(URI + '/auth/forgotPassword', {
+        return fetch(URI + '/user/forgotPassword', {
             method: 'POST',
             body: JSON.stringify({ mail: mail }),
             headers: {
@@ -26,6 +26,19 @@ export default {
             }
         })
             .then(response => response.json())
+    },
+
+    checkResponse(param: any) {
+        return fetch(URI + '/user/checkResponse', {
+            method: 'POST',
+            body: JSON.stringify(param),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response => console.log(JSON.stringify(response)))
     },
 
     signUp(state: ISignup) {
@@ -40,6 +53,5 @@ export default {
         })
             .then(response => response.json())
             .then(response => console.log(JSON.stringify(response)))
-            .catch(err => console.log(err));
     }
 }

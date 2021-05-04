@@ -3,7 +3,7 @@
     <ion-content>
       <ion-item class="body form">
         <ion-text>
-          QUESTION
+          {{ question }}
         </ion-text>
       </ion-item>
 
@@ -11,12 +11,12 @@
         <ion-item>
           <ion-label position="floating">
             réponse
-            <ion-input />
+            <ion-input v-model="state.resp" />
           </ion-label>
         </ion-item>
 
         <div class="center">
-          <ion-button>
+          <ion-button @click="check">
             valider
           </ion-button>
         </div>
@@ -36,6 +36,8 @@ import {
   IonContent,
 } from "@ionic/vue";
 import router from "@/router";
+import { reactive } from "vue";
+import loginService from "./services/loginService";
 
 export default {
   name: "ValidateUser",
@@ -49,8 +51,25 @@ export default {
     IonButton,
   },
   setup() {
-    const route = router.currentRoute.value.params;
-    console.log(route);
+    const state = reactive({
+      resp: "",
+    });
+    console.log(router.currentRoute.value.params);
+    const question = router.currentRoute.value.params.question;
+    const mail = router.currentRoute.value.params.mail;
+
+    const check = () => {
+      console.log("resp : " + state.resp);
+
+      const a = Promise.resolve(
+        loginService.checkResponse({ mail: mail, response: state.resp })
+      ).then((value) => {
+        // router.push({
+        //   name:
+        // })
+      });
+    };
+    return { question, state, check };
   },
 };
 </script>

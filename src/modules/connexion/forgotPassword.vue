@@ -57,8 +57,10 @@ export default {
 
       const a = Promise.resolve(loginService.forgotPassword(mail.value));
       a.then((value) => {
-        console.log("ok");
-        router.push({ name: "ValidateUser", params: { mail: value.mail } });
+        router.push({
+          name: "ValidateUser",
+          params: { mail: value.mail, question: value.question },
+        });
       });
     };
     return { v$, onSubmit };
