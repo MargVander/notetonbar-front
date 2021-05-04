@@ -16,18 +16,16 @@ export default {
             .then(response => console.log(JSON.stringify(response)))
     },
 
-    forgotMail(mail: string) {
-        console.log(mail);
-        fetch(URI + '/auth/forgotMail', {
+    forgotPassword(mail: string) {
+        return fetch(URI + '/auth/forgotPassword', {
             method: 'POST',
-            body: JSON.stringify(mail),
+            body: JSON.stringify({ mail: mail }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
             .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)));
     },
 
     signUp(state: ISignup) {

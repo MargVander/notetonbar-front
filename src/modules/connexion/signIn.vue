@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <div class="body" />
-      <div class="body test">
+      <div class="body">
         <ion-grid>
           <ion-row>
             <ion-col size="2" />

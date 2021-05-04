@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import SignIn from '../modules/connexion/signIn.vue';
 import ForgotPassword from '../modules/connexion/forgotPassword.vue';
+import ValidateUser from '../modules/connexion/validateUser.vue';
 import SingUp from '../modules/connexion/signUp.vue';
 
 
@@ -19,6 +20,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/forgotPassword',
     name: 'ForgotPassword',
     component: ForgotPassword
+  },
+  {
+    path: '/validateUser',
+    name: 'ValidateUser/:mail',
+    props: true,
+    component: ValidateUser
   },
   {
     path: '/signUp',
