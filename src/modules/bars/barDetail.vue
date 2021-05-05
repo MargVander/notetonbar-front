@@ -12,6 +12,7 @@
       <div class="info">
         <star-rating
           v-if="bar.rating"
+          active-color="#f4c70e"
           :rating="bar.rating.avg_rating"
           :star-size="20"
           :show-rating="false"
@@ -46,8 +47,12 @@
         <a class="website-link" :href="bar.website_link">Voir le site du bar</a>
       </div>
     </div>
+    <div @click="openAddReview" class="flex add-review">
+      <ion-icon name="add-circle"></ion-icon>
+      <ion-text>Ajouter un avis</ion-text>
+    </div>
     <div class="review-top flex">
-      <ion-text class="review-title">Les avis :</ion-text>
+      <ion-text class="review-title">Les derniers avis :</ion-text>
       <router-link class="review-link" :to="{ name: 'bar-reviews', params: { id: this.id, name: bar.name} }">Voir tout les avis</router-link>
     </div>
     <div class="reviews">
@@ -62,13 +67,20 @@ import StarRating from "vue-star-rating";
 import { modalController } from "@ionic/vue";
 import HourModal from "./components/hourModal";
 import ReviewsList from "../reviews/components/reviewsList"
+import AddReview from "../reviews/components/addReview"
+import { addIcons } from "ionicons";
+import { addCircle } from "ionicons/icons";
 
 import { IonContent, IonSlides, IonSlide, IonText, IonTitle, IonImg } from "@ionic/vue";
+
+addIcons({
+  "add-circle": addCircle
+});
 
 export default {
   components: {
     StarRating,
-    ReviewsList
+    ReviewsList,
   },
   data() {
     return {
@@ -98,6 +110,23 @@ export default {
         }
       });
       return modal.present();
+    },
+    async openAddReview() {
+      const modal = await modalController.create({
+        component: AddReview,
+        cssClass: "my-custom-class",
+        backdropDismiss: true,
+        componentProps: {
+          id: this.bar.id,
+        }
+      });
+
+      modal.onDidDismiss()
+      .then(() => {
+        this.fetchReviews(this.id, 5);
+    });
+
+      return modal.present();
     }
   },
   created() {
@@ -110,6 +139,9 @@ export default {
 
 
 <style>
+ion-content {
+  padding: 0 20px;
+}
 ion-slides {
   height: 25%;
 }
@@ -161,7 +193,7 @@ ion-slide div {
   margin-top: 8px;
 }
 .website-link {
-  color: #f4c70e;
+  color: #a9a9a9;
   text-decoration: none;
   margin-top: 10px;
   font-size: 11px;
@@ -176,9 +208,21 @@ ion-slide div {
 }
 .review-link {
     text-decoration: none;
-    color: gray;
+    color: #a9a9a9;
 }
 .reviews {
   padding: 0 20px;
+}
+.add-review {
+  justify-content: unset;
+  padding: 0 20px;
+  color: #f4c70e;
+  font-weight: bold;
+  font-size: 18px;
+  align-items: center;
+  margin-top: 10px;
+}
+.add-review ion-icon {
+  margin-right: 5px;
 }
 </style>

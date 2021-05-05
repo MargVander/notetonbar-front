@@ -4,6 +4,7 @@
       <div class="review-item">
         <div class="review-rating">
           <star-rating
+            active-color="#f4c70e"
             :rating="review.rating"
             :star-size="15"
             :show-rating="false"
@@ -68,7 +69,7 @@ ion-item {
   justify-content: flex-end;
   color: #dadadb;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .time {
   font-size: 14px;

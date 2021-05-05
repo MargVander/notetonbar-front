@@ -13,7 +13,6 @@ import BarService from "./services/BarService";
 import ReviewsList from "../reviews/components/reviewsList"
 import { ellipse, square, triangle } from "ionicons/icons";
 import { addIcons } from "ionicons";
-import { construct, home } from "ionicons/icons";
 import { chevronBackOutline } from "ionicons/icons";
 
 addIcons({
@@ -27,7 +26,6 @@ export default {
   },
   components: {
     ReviewsList
-    // StarRating
   },
   data() {
     return {
