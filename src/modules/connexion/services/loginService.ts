@@ -38,7 +38,18 @@ export default {
             }
         })
             .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
+    },
+
+    newMdp(param: any) {
+        return fetch(URI + '/user/newMdp', {
+            method: 'PATCH',
+            body: JSON.stringify(param),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
     },
 
     signUp(state: ISignup) {

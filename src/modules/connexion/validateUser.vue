@@ -64,9 +64,12 @@ export default {
       const a = Promise.resolve(
         loginService.checkResponse({ mail: mail, response: state.resp })
       ).then((value) => {
-        // router.push({
-        //   name:
-        // })
+        console.log(value);
+
+        router.push({
+          name: "newMdp",
+          params: { mail: value.mail, response: state.resp },
+        });
       });
     };
     return { question, state, check };
