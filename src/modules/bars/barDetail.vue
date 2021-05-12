@@ -58,6 +58,7 @@
     <div class="reviews">
       <ReviewsList :datas="this.reviews" />
     </div>
+    <Tab :currentPage="'search'" />
   </ion-content>
 </template>
 
@@ -72,6 +73,7 @@ import { addIcons } from "ionicons";
 import { addCircle } from "ionicons/icons";
 
 import { IonContent, IonSlides, IonSlide, IonText, IonTitle, IonImg } from "@ionic/vue";
+import Tab from "../home/components/tab"
 
 addIcons({
   "add-circle": addCircle
@@ -81,6 +83,7 @@ export default {
   components: {
     StarRating,
     ReviewsList,
+    Tab,
   },
   data() {
     return {

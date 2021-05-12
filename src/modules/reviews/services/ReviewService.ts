@@ -1,8 +1,8 @@
 const uri = "http://localhost:3000";
 
 export default {
-    fetchReviews(id: number) {
-        return fetch(uri + '/reviews' + id, {
+    async fetchReviews(limit = 0) {
+        return await fetch(uri + '/reviews?limit=' + limit, {
             method: 'GET',
             mode: 'cors'
         })
@@ -13,9 +13,9 @@ export default {
                 return datas
             })
     },
-    createReview(data: Record<string, any>) {
+    async createReview(data: Record<string, any>) {
         console.log("create review");
-        return fetch(uri + '/reviews', {
+        return await fetch(uri + '/reviews', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(data),

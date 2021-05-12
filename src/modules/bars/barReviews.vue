@@ -5,6 +5,7 @@
       <ion-title>{{this.name}}</ion-title>
     </div>
     <ReviewsList :datas="this.reviews" />
+    <Tab :currentPage="'search'" />
   </ion-content>
 </template>
 
@@ -14,6 +15,7 @@ import ReviewsList from "../reviews/components/reviewsList"
 import { ellipse, square, triangle } from "ionicons/icons";
 import { addIcons } from "ionicons";
 import { chevronBackOutline } from "ionicons/icons";
+import Tab from "../home/components/tab"
 
 addIcons({
   "chevron-back-outline": chevronBackOutline
@@ -25,7 +27,8 @@ export default {
     name: String
   },
   components: {
-    ReviewsList
+    ReviewsList,
+    Tab,
   },
   data() {
     return {

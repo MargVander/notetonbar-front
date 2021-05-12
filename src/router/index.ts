@@ -3,6 +3,11 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    name: 'homepage',
+    component: () => import('@/modules/home/homePage.vue')
+  },
+  {
     path: '/bar/:id',
     name: 'detail',
     component: () => import('@/modules/bars/barDetail.vue')

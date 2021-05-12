@@ -2,6 +2,9 @@
   <ion-list>
     <ion-item v-for="review in datas" :key="review.id">
       <div class="review-item">
+        <div v-if="bar" class="home-name" @click="this.$router.push(`/bar/${review.bar.id}`)" >
+          <ion-text>{{review.bar.name}}</ion-text>
+        </div>
         <div class="review-rating">
           <star-rating
             active-color="#f4c70e"
@@ -40,13 +43,14 @@ export default {
     StarRating
   },
   props: {
-    datas: Array
+    datas: Array,
+    bar: Boolean,
   },
   methods: {
     parseDate: function(date) {
       return moment(date).format("DD/MM/YYYY HH:mm");
     }
-  }
+  },
 };
 </script>
 
@@ -86,5 +90,9 @@ ion-item {
   width: 20px;
   height: 20px;
   margin-right: 10px;
+}
+.home-name {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 </style>

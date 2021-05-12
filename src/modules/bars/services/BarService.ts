@@ -1,8 +1,8 @@
 const uri = "http://localhost:3000";
 
 export default {
-    fetchBars() {
-        return fetch(uri + '/bars', {
+    async fetchBars(limit = 0) {
+        return await fetch(uri + '/bars?limit=' + limit, {
             method: 'GET',
             mode: 'cors'
         })
@@ -13,8 +13,8 @@ export default {
                 return datas
             })
     },
-    fetchBar(id) {
-        return fetch(uri + '/bars/' + id, {
+    async fetchBar(id: number) {
+        return await fetch(uri + '/bars/' + id, {
             method: 'GET',
             mode: 'cors'
         })
@@ -25,8 +25,8 @@ export default {
                 return datas
             })
     },
-    fetchReviews(id, limit = 0) {
-        return fetch(uri + '/bars/' + id + '/reviews?limit=' + limit, {
+    async fetchReviews(id: number, limit = 0) {
+        return await fetch(uri + '/bars/' + id + '/reviews?limit=' + limit, {
             method: 'GET',
             mode: 'cors'
         })
@@ -37,5 +37,4 @@ export default {
                 return datas
             })
     }
-
 }
