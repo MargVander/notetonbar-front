@@ -15,7 +15,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/signIn',
     name: 'SignIn',
-    component: SignIn
+    component: SignIn,
+    props: true
   },
   {
     path: '/forgotPassword',

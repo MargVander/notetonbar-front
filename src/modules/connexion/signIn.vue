@@ -10,19 +10,29 @@
             <ion-col>
               <form @submit.prevent="onSubmit" class="test try">
                 <ion-item class="fontSize">
-                  <ion-label position="floating"> Pseudo :</ion-label>
-                  <ion-input type="text" v-model="v$.pseudo.$model" />
+                  <ion-label position="floating"> mail :</ion-label>
+                  <ion-input type="text" v-model="state.mail" />
                 </ion-item>
+                <div v-if="v$.mail.$error" class="center red">
+                  veuillez renseigner une adresse mail valide
+                </div>
 
                 <ion-item>
                   <ion-label position="floating"> Mot de passe :</ion-label>
-                  <ion-input type="password" v-model="v$.password.$model" />
+                  <ion-input type="password" v-model="state.password" />
                 </ion-item>
+                <div v-if="v$.password.$error" class="center red">
+                  veuillez remplir ce champ
+                </div>
 
                 <div class="center">
                   <ion-button type="submit">
                     se connecter
                   </ion-button>
+                </div>
+
+                <div v-if="state.error" class="center red">
+                  {{ state.errorMessage }}
                 </div>
               </form>
             </ion-col>
@@ -62,10 +72,12 @@ import {
   IonGrid,
   IonRow,
 } from "@ionic/vue";
-import { reactive, toRef } from "vue";
+import { reactive } from "vue";
 import useVuelidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, email } from "@vuelidate/validators";
 import loginService from "./services/loginService";
+import LoginModel from "./models/loginModel";
+
 export default {
   name: "SignIn",
   components: {
@@ -82,28 +94,35 @@ export default {
   },
   setup() {
     const state = reactive({
-      pseudo: "",
+      mail: "",
       password: "",
+      error: false,
+      errorMessage: "Identifiants incorrects",
     });
 
     const rules = {
-      pseudo: { required },
+      mail: { required, email },
       password: { required },
     };
 
-    const v$ = useVuelidate(rules, {
-      pseudo: toRef(state, "pseudo"),
-      password: toRef(state, "password"),
-    });
+    const v$ = useVuelidate(rules, state);
 
     const onSubmit = () => {
       v$.value.$touch();
       if (v$.value.$invalid) return;
-      console.log(v$);
 
-      loginService.login(state);
+      loginService
+        .login(new LoginModel(state.mail, state.password))
+        .then((data) => {
+          if (data.access_token) {
+            state.error = false;
+            console.log(data.access_token);
+          } else {
+            state.error = true;
+          }
+        });
     };
-    return { v$, onSubmit };
+    return { v$, onSubmit, state };
   },
 };
 </script>
@@ -133,5 +152,8 @@ export default {
   display: flex;
   flex-direction: column-reverse;
   align-content: space-between;
+}
+.red {
+  color: red;
 }
 </style>

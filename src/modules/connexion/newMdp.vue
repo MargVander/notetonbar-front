@@ -18,6 +18,10 @@
           <div class="center">
             <ion-button type="submit"> valider </ion-button>
           </div>
+
+          <div v-if="v$.$error" class="center red">
+            veuillez renseigner des champs identiques
+          </div>
         </form>
       </div>
     </ion-content>
@@ -38,6 +42,7 @@ import { computed, reactive } from "vue";
 import { required, sameAs } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import loginService from "./services/loginService";
+import NewMdpModel from "./models/newMdpModel";
 
 export default {
   name: "NewMdp",
@@ -57,6 +62,8 @@ export default {
       },
       mail: router.currentRoute.value.params.mail,
       response: router.currentRoute.value.params.response,
+      error: false,
+      errorMessage: "la modification n'a pas pu se faire",
     });
 
     const rules = computed(() => {
@@ -78,11 +85,22 @@ export default {
       if (v$.value.$invalid) return;
       console.log(v$);
 
-      loginService.newMdp({
-        password: state.password.pass,
-        mail: state.mail,
-        response: state.response,
-      });
+      loginService
+        .newMdp(
+          new NewMdpModel(state.mail, state.password.pass, state.response)
+        )
+        .then((data) => {
+          console.log(data);
+
+          if (data.response) {
+            router.replace({
+              name: "SignIn",
+              params: { message: "mot de passe modifié" },
+            });
+          } else {
+            state.error = true;
+          }
+        });
     };
 
     return { v$, onSubmit, state };
@@ -105,5 +123,9 @@ export default {
   justify-content: center;
   margin-right: 2em;
   margin-left: 2em;
+}
+
+.red {
+  color: red;
 }
 </style>

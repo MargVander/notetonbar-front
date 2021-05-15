@@ -1,4 +1,4 @@
 export default interface Ilogin {
-    pseudo: string
+    mail: string
     password: string
 }

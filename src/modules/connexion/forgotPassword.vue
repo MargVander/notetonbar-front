@@ -6,14 +6,25 @@
         <form @submit.prevent="onSubmit" class="body">
           <ion-item>
             <ion-label position="floating"> adresse mail :</ion-label>
-            <ion-input type="text" v-model="v$.mail.$model" />
+            <ion-input type="text" v-model="state.mail" />
           </ion-item>
+          <div v-if="v$.mail.$error" class="red">
+            veuillez renseigner une adresse mail valide
+          </div>
           <div class="center">
             <ion-button type="submit">
               envoyer
             </ion-button>
           </div>
         </form>
+      </div>
+
+      <div v-if="state.error">
+        <ion-text>
+          <div class="center red">
+            {{ state.errorMessage }}
+          </div>
+        </ion-text>
       </div>
     </ion-content>
   </ion-page>
@@ -27,12 +38,14 @@ import {
   IonItem,
   IonInput,
   IonButton,
+  IonText,
 } from "@ionic/vue";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
-import { ref } from "vue";
+import { reactive } from "vue";
 import router from "@/router";
 import loginService from "./services/loginService";
+import ForgotPasswordModel from "./models/forgotPasswordModel";
 
 export default {
   name: "ForgotPassword",
@@ -43,27 +56,39 @@ export default {
     IonItem,
     IonInput,
     IonButton,
+    IonText,
   },
   setup() {
-    const mail = ref("");
+    const state = reactive({
+      mail: "margaux@mail.com",
+      error: false,
+      errorMessage: "Adresse mail inconnue",
+    });
     const rules = {
       mail: { required, email },
     };
-    const v$ = useVuelidate(rules, { mail });
+    const v$ = useVuelidate(rules, state);
 
     const onSubmit = () => {
       v$.value.$touch();
       if (v$.value.$invalid) return;
 
-      const a = Promise.resolve(loginService.forgotPassword(mail.value));
-      a.then((value) => {
-        router.push({
-          name: "ValidateUser",
-          params: { mail: value.mail, question: value.question },
+      loginService
+        .forgotPassword(new ForgotPasswordModel(state.mail))
+        .then((value) => {
+          console.log(value);
+          if (value.mail) {
+            state.error = false;
+            router.push({
+              name: "ValidateUser",
+              params: { mail: value.mail, question: value.question },
+            });
+          } else {
+            state.error = true;
+          }
         });
-      });
     };
-    return { v$, onSubmit };
+    return { v$, onSubmit, state };
   },
 };
 </script>
@@ -91,5 +116,9 @@ export default {
 }
 .body {
   height: 33%;
+}
+
+.red {
+  color: red;
 }
 </style>

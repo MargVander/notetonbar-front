@@ -1,10 +1,14 @@
 import Ilogin from '../interfaces/Ilogin';
 import ISignup from '../interfaces/ISignUp';
+import ForgotPasswordModel from '../models/forgotPasswordModel';
+import LoginModel from '../models/loginModel';
+import NewMdpModel from '../models/newMdpModel';
+import ValidateUserModel from '../models/validateUserModel';
 
 const URI = 'http://localhost:3000'
 export default {
-    login(state: Ilogin) {
-        fetch(URI + '/auth/login', {
+    login(state: LoginModel) {
+        return fetch(URI + '/auth/login', {
             method: 'POST',
             body: JSON.stringify(state),
             headers: {
@@ -12,23 +16,36 @@ export default {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
+            .then(response => {
+                if (response.status == 201) {
+                    return response.json()
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch((error) => { return error })
     },
 
-    forgotPassword(mail: string) {
+    forgotPassword(mail: ForgotPasswordModel) {
         return fetch(URI + '/user/forgotPassword', {
             method: 'POST',
-            body: JSON.stringify({ mail: mail }),
+            body: JSON.stringify(mail),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status == 201) {
+                    return response.json()
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch((error) => { return error })
     },
 
-    checkResponse(param: any) {
+    checkResponse(param: ValidateUserModel) {
         return fetch(URI + '/user/checkResponse', {
             method: 'POST',
             body: JSON.stringify(param),
@@ -37,10 +54,17 @@ export default {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status == 201) {
+                    return response.json()
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch((error) => { return error })
     },
 
-    newMdp(param: any) {
+    newMdp(param: NewMdpModel) {
         return fetch(URI + '/user/newMdp', {
             method: 'PATCH',
             body: JSON.stringify(param),
@@ -49,7 +73,14 @@ export default {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json()
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch((error) => { return error })
     },
 
     signUp(state: ISignup) {

@@ -1,9 +1,9 @@
 export default class LoginModel {
-    pseudo: string
+    mail: string
     password: string
 
-    constructor(pseudo: string, password: string) {
-        this.pseudo = pseudo
+    constructor(mail: string, password: string) {
+        this.mail = mail
         this.password = password
     }
 }
