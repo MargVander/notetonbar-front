@@ -93,9 +93,8 @@ export default {
           console.log(data);
 
           if (data.response) {
-            router.replace({
+            router.push({
               name: "SignIn",
-              params: { message: "mot de passe modifié" },
             });
           } else {
             state.error = true;

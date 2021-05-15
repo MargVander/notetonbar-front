@@ -5,8 +5,15 @@ import ForgotPassword from '../modules/connexion/forgotPassword.vue';
 import ValidateUser from '../modules/connexion/validateUser.vue';
 import NewMdp from '../modules/connexion/newMdp.vue';
 import SingUp from '../modules/connexion/signUp.vue';
+import { store } from '@/store';
 
-
+// const authguard = (to, from, next) => {
+//   if (store.getters.getToken) {
+//     next();
+//   } else {
+//     next("/")
+//   }
+// }
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',

@@ -77,6 +77,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import loginService from "./services/loginService";
 import LoginModel from "./models/loginModel";
+import { store } from "@/store";
 
 export default {
   name: "SignIn",
@@ -116,7 +117,8 @@ export default {
         .then((data) => {
           if (data.access_token) {
             state.error = false;
-            console.log(data.access_token);
+            store.commit("setToken", data.access_token);
+            console.log("depuis le store : " + store.getters.getToken);
           } else {
             state.error = true;
           }
