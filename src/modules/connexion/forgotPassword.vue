@@ -46,6 +46,7 @@ import { reactive } from "vue";
 import router from "@/router";
 import loginService from "./services/loginService";
 import ForgotPasswordModel from "./models/forgotPasswordModel";
+import { store } from "@/store";
 
 export default {
   name: "ForgotPassword",
@@ -68,6 +69,7 @@ export default {
       mail: { required, email },
     };
     const v$ = useVuelidate(rules, state);
+    console.log("depuis le store : " + store.getters.getToken.access_token);
 
     const onSubmit = () => {
       v$.value.$touch();

@@ -78,6 +78,7 @@ import { required, email } from "@vuelidate/validators";
 import loginService from "./services/loginService";
 import LoginModel from "./models/loginModel";
 import { store } from "@/store";
+import router from "@/router";
 
 export default {
   name: "SignIn",
@@ -95,8 +96,8 @@ export default {
   },
   setup() {
     const state = reactive({
-      mail: "",
-      password: "",
+      mail: "cyriak@mail.com",
+      password: "root",
       error: false,
       errorMessage: "Identifiants incorrects",
     });
@@ -117,8 +118,13 @@ export default {
         .then((data) => {
           if (data.access_token) {
             state.error = false;
-            store.commit("setToken", data.access_token);
-            console.log("depuis le store : " + store.getters.getToken);
+            store.commit("setToken", data);
+            console.log(
+              "depuis le store : " + store.getters.getToken.access_token
+            );
+            router.push({
+              name: "ProfilUser",
+            });
           } else {
             state.error = true;
           }

@@ -5,10 +5,12 @@ import ForgotPassword from '../modules/connexion/forgotPassword.vue';
 import ValidateUser from '../modules/connexion/validateUser.vue';
 import NewMdp from '../modules/connexion/newMdp.vue';
 import SingUp from '../modules/connexion/signUp.vue';
+import ProfilUser from '../modules/user/profilUser.vue';
 import { store } from '@/store';
 
 // const authguard = (to, from, next) => {
-//   if (store.getters.getToken) {
+//   let token = store.getters.getToken;
+//   if (token.access_token && token.expire_in > Date.now()) {
 //     next();
 //   } else {
 //     next("/")
@@ -38,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/newMdp',
-    name: 'newMdp',
+    name: 'NewMdp',
     component: NewMdp,
     props: true
   },
@@ -46,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/signUp',
     name: 'SignUp',
     component: SingUp
+  },
+  {
+    path: '/profilUser',
+    name: 'ProfilUser',
+    component: ProfilUser,
   }
 ]
 

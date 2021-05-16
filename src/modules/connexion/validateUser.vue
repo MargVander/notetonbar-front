@@ -86,7 +86,7 @@ export default {
         .then((value) => {
           if (value.mail) {
             router.push({
-              name: "newMdp",
+              name: "NewMdp",
               params: { mail: value.mail, response: state.resp },
             });
           } else {

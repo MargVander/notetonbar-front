@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content class="test">
+    <ion-content>
       <div class="body" />
 
       <div class="bodyForm">
