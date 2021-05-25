@@ -1,10 +1,12 @@
-const URI = 'http://localhost:3000'
+import { store } from "@/store";
 
+const URI = 'http://localhost:3000';
 export default {
     getUser(id: number) {
         return fetch(URI + '/user/' + id, {
             method: 'GET',
             headers: {
+                "Authorization": `bearer ${store.state.bearer}`,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }

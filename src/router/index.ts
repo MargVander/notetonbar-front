@@ -8,14 +8,15 @@ import SingUp from '../modules/connexion/signUp.vue';
 import ProfilUser from '../modules/user/profilUser.vue';
 import { store } from '@/store';
 
-// const authguard = (to, from, next) => {
-//   let token = store.getters.getToken;
-//   if (token.access_token && token.expire_in > Date.now()) {
-//     next();
-//   } else {
-//     next("/")
-//   }
-// }
+const authguard = (to: any, from: any, next: any) => {
+  const token = store.getters.getToken;
+  if (token.access_token && token.expire_in > Date.now()) {
+    next();
+  } else {
+    next("/")
+  }
+}
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -57,23 +58,27 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/homepage',
     name: 'homepage',
-    component: () => import('@/modules/home/homePage.vue')
+    component: () => import('@/modules/home/homePage.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bar/:id',
     name: 'detail',
-    component: () => import('@/modules/bars/barDetail.vue')
+    component: () => import('@/modules/bars/barDetail.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bar/reviews/:id',
     name: 'bar-reviews',
     props: true,
-    component: () => import('@/modules/bars/barReviews.vue')
+    component: () => import('@/modules/bars/barReviews.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bars/',
     name: 'bars',
     component: () => import('@/modules/bars/barList.vue'),
+    beforeEnter: authguard
   },
 ]
 
