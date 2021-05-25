@@ -1,12 +1,12 @@
 <template>
   <ion-content class="home">
     <div class="bars">
-      <ion-text>Découvrez les derniers bars</ion-text>
+      <ion-text class="hometitle">Découvrez les derniers bars</ion-text>
     </div>
     <BarHomeCard :datas="this.bars" />
 
     <div class="reviews">
-      <ion-text>Découvrez les dernieres reviews</ion-text>
+      <ion-text class="hometitle">Découvrez les dernieres reviews</ion-text>
       <ReviewsList :datas="this.reviews" :bar="true" />
     </div>
     <Tab :currentPage="'home'" />
@@ -59,8 +59,8 @@ export default {
 .home .bars {
   padding: 10px 20px 0;
 }
-.home .reviews ion-text,
-.home .bars ion-text {
+.home .reviews .hometitle,
+.home .bars .hometitle {
   font-weight: bold;
 }
 </style>

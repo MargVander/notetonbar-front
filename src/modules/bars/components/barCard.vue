@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style>
-.flex {
+.barcard .flex {
   display: flex;
   justify-content: space-between;
 }

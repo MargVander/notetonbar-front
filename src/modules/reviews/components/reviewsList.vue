@@ -1,8 +1,8 @@
 <template>
   <ion-list>
-    <ion-item v-for="review in datas" :key="review.id">
+    <ion-item v-for="review in datas" :key="review.id" :id="review.id">
       <div class="review-item">
-        <div v-if="bar" class="home-name" @click="this.$router.push(`/bar/${review.bar.id}`)" >
+        <div v-if="bar" class="home-name" @click="this.$router.push(`/bar/${review.bar.id}`)">
           <ion-text>{{review.bar.name}}</ion-text>
         </div>
         <div class="review-rating">
@@ -21,6 +21,11 @@
         </div>
         <div class="review-bottom">
           <div class="flex user-info">
+            <ion-text
+              @click="deleteReviews(review)"
+              class="deletebtn"
+              v-if="userId === review.user.id"
+            >Supprimer</ion-text>
             <div
               class="avatar"
               v-bind:style="{ backgroundImage: 'url(http://localhost:3000/pictures/' + review.user.profile_picture + ')' }"
@@ -35,7 +40,9 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import ReviewService from "../services/ReviewService";
 import moment from "moment";
+import { store } from "@/store";
 
 export default {
   name: "ReviewsList",
@@ -44,11 +51,29 @@ export default {
   },
   props: {
     datas: Array,
-    bar: Boolean,
+    bar: Boolean
+  },
+  data() {
+    return {
+      userId: store.getters.getToken.id
+    };
   },
   methods: {
     parseDate: function(date) {
       return moment(date).format("DD/MM/YYYY HH:mm");
+    },
+    deleteReviews: function(review) {
+      if (this.userId === review.user.id) {
+        if (confirm("Êtes-vous sur ?")) {
+          ReviewService.deleteReview(review.id).then(() => {
+            const index = this.datas.findIndex(
+              data => data.id === review.id
+            );
+            
+            document.getElementById(review.id).style.display = "none"
+          });
+        }
+      }
     }
   },
 };
@@ -81,7 +106,6 @@ ion-item {
   color: #dadadb;
 }
 .user-info {
-  width: 25%;
   justify-content: unset;
 }
 .avatar {
@@ -94,5 +118,8 @@ ion-item {
 .home-name {
   font-weight: bold;
   margin-bottom: 10px;
+}
+.deletebtn {
+  color: red;
 }
 </style>
