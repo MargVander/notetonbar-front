@@ -82,12 +82,8 @@ export default defineComponent({
     const v$ = useVuelidate(rules, state);
 
     const onSubmit = (rating) => {
-      console.log("submit");
-
       v$.value.$touch();
       if (v$.value.$invalid) return;
-      console.log("ok");
-
       const data = {
         content: state.review,
         rating: rating,
@@ -95,7 +91,6 @@ export default defineComponent({
         barId: props.id,
       };
       ReviewService.createReview(data).then((data) => {
-        console.log(data);
         if (data.status === 201) {
           modalController.dismiss();
         }

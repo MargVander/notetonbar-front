@@ -6,7 +6,11 @@
           v-bind:style="{ backgroundImage: 'url(http://localhost:3000/pictures/' + picture.path + ')' }"
         />
       </ion-slide>
+      <ion-slide v-if="!bar.pictures[0]">
+        <div class="head-picture" style="background-image: url(https://img.phonandroid.com/2020/09/clients-bar.jpg)" />
+      </ion-slide>
     </ion-slides>
+    
     <ion-title class="bar-title">{{bar.name}}</ion-title>
     <div class="content">
       <div class="info">
@@ -148,7 +152,7 @@ ion-content {
 ion-slides {
   height: 25%;
 }
-ion-slide div {
+ion-slide div, .head-picture {
   width: 100%;
   height: 100%;
   background-size: cover;

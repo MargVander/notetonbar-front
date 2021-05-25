@@ -18,7 +18,6 @@ export default {
             })
     },
     async createReview(data: Record<string, any>) {
-        console.log("create review");
         return await fetch(uri + '/reviews', {
             method: 'POST',
             mode: 'cors',
@@ -33,5 +32,18 @@ export default {
             .then((res) => {
                 return res
             })
+    },
+    async deleteReview(id: number) {
+        return await fetch(uri + '/reviews/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": `bearer ${store.state.bearer}`,
+            }
+        })
+        .then((res) => {
+            return res
+        })
     }
 }
