@@ -1,10 +1,14 @@
+import { store } from "@/store";
+
 const uri = "http://localhost:3000";
 
 export default {
     async fetchReviews(limit = 0) {
         return await fetch(uri + '/reviews?limit=' + limit, {
             method: 'GET',
-            mode: 'cors'
+            headers: {
+                "Authorization": `bearer ${store.state.bearer}`,
+            },
         })
             .then((res) => {
                 return res.json()
@@ -20,7 +24,9 @@ export default {
             body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `bearer ${store.state.bearer}`,
+
             }
         })
             .then((res) => {

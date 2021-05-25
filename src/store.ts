@@ -2,21 +2,21 @@ import { createStore } from "vuex";
 
 export const store = createStore({
     state: {
-        token: undefined,
-        test: "test store"
+        token: "",
+        bearer: ""
     },
     mutations: {
         setToken(state, token) {
             state.token = token
+            state.bearer = token.access_token
         }
     },
     getters: {
         getToken(state) {
             return state.token
         },
-
-        getTest(state) {
-            return state.test
+        getBearer(state) {
+            return state.bearer
         }
     }
 })
