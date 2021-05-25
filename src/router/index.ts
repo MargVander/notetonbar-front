@@ -53,7 +53,28 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profilUser',
     name: 'ProfilUser',
     component: ProfilUser,
-  }
+  },
+  {
+    path: '/homepage',
+    name: 'homepage',
+    component: () => import('@/modules/home/homePage.vue')
+  },
+  {
+    path: '/bar/:id',
+    name: 'detail',
+    component: () => import('@/modules/bars/barDetail.vue')
+  },
+  {
+    path: '/bar/reviews/:id',
+    name: 'bar-reviews',
+    props: true,
+    component: () => import('@/modules/bars/barReviews.vue')
+  },
+  {
+    path: '/bars/',
+    name: 'bars',
+    component: () => import('@/modules/bars/barList.vue'),
+  },
 ]
 
 const router = createRouter({

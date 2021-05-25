@@ -2,8 +2,11 @@
 http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
+
 :root {
   /** primary **/
+  --ion-background-color: #4C4D50;
+  --ion-text-color: white;
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
