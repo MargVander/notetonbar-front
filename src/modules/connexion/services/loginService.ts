@@ -27,6 +27,22 @@ export default {
             .catch((error) => { return error })
     },
 
+    addPicture(file: any, id: number) {
+        const formData = new FormData();
+        formData.append('photo', file)
+
+        return fetch(URI + `/user/avatar/${id}`, {
+            method: 'POST',
+            body: formData,
+        }).then(response => {
+            if (response.status == 201) {
+                return response.json()
+            } else {
+                throw new Error();
+            }
+        })
+    },
+
     getQuestion() {
         return fetch(URI + '/user/signUp/question', {
             method: 'GET',

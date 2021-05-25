@@ -119,9 +119,7 @@ export default {
           if (data.access_token) {
             state.error = false;
             store.commit("setToken", data);
-            console.log(
-              "depuis le store : " + store.getters.getToken.access_token
-            );
+
             router.push({
               name: "homepage",
             });
