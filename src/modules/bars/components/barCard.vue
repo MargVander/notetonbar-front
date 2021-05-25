@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item lines="none" v-for="bar in data" :key="bar.id">
-          <ion-card @click="$router.push(`${bar.id}`)">
+          <ion-card @click="this.$router.push(`/bar/${bar.id}`)">
             <div
               v-if="!bar.pictures[0]"
               class="card-img"
@@ -44,6 +44,8 @@
 
 <script>
 import StarRating from "vue-star-rating";
+
+import { IonContent, IonCard, IonCardContent, IonCardSubtitle, IonText, IonTitle, IonItem, IonList } from "@ionic/vue";
 export default {
   name: "BarCard",
   props: {

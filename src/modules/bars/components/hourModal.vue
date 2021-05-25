@@ -67,11 +67,6 @@ export default defineComponent({
   props: {
     hours: { type: Object, default: null }
   },
-  data() {
-    return {
-      content: "Content"
-    };
-  },
   methods: {
     async close() {
       await modalController.dismiss();

@@ -1,0 +1,66 @@
+<template>
+  <ion-content class="home">
+    <div class="bars">
+      <ion-text>Découvrez les derniers bars</ion-text>
+    </div>
+    <BarHomeCard :datas="this.bars" />
+
+    <div class="reviews">
+      <ion-text>Découvrez les dernieres reviews</ion-text>
+      <ReviewsList :datas="this.reviews" :bar="true" />
+    </div>
+    <Tab :currentPage="'home'" />
+  </ion-content>
+</template>
+
+<script>
+import ReviewsList from "../reviews/components/reviewsList";
+import BarService from "../bars/services/BarService";
+import ReviewService from "../reviews/services/ReviewService";
+import BarHomeCard from "../bars/components/barHomeCard";
+import Tab from "./components/tab";
+
+export default {
+  components: {
+    ReviewsList,
+    BarHomeCard,
+    Tab
+  },
+  data() {
+    return {
+      bars: null,
+      reviews: null
+    };
+  },
+  methods: {
+    async fetchReviews(limit) {
+      await ReviewService.fetchReviews(limit).then(reviews => {
+        this.reviews = reviews;
+      });
+    },
+    async fetchBars(limit) {
+      await BarService.fetchBars(limit).then(bars => {
+        this.bars = bars;
+      });
+    }
+  },
+  created() {
+    this.fetchReviews(3);
+    this.fetchBars(5);
+  }
+};
+</script>
+
+<style>
+.flex {
+  display: flex;
+}
+.reviews,
+.bars {
+  padding: 10px 20px 0;
+}
+.reviews ion-text,
+.bars ion-text {
+  font-weight: bold;
+}
+</style>
