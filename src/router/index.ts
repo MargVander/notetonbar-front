@@ -10,7 +10,7 @@ import { store } from '@/store';
 
 const authguard = (to: any, from: any, next: any) => {
   const token = store.getters.getToken;
-  if (token.access_token && token.expire_in > Date.now()) {
+  if (token.access_token) {
     next();
   } else {
     next("/")
