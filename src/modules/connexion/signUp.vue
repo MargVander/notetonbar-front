@@ -62,7 +62,7 @@
 
           <ion-item>
             <ion-label position="floating"> Avatar </ion-label>
-            <ion-input type="file" v-model="state.picture" />
+            <ion-input type="file" @change="uploadImage($event)" />
           </ion-item>
 
           <div class="center">
@@ -123,7 +123,7 @@ export default {
       mail: "marco@mail.com",
       password: "123456",
       age: 0,
-      picture: "",
+      picture: File,
       question: "",
       response: "test",
       questions: undefined,
@@ -150,6 +150,12 @@ export default {
       }
     });
 
+    const uploadImage = (event: any) => {
+      console.log(event.target.files);
+
+      state.picture = event.target.files[0];
+    };
+
     const onSubmit = () => {
       v$.value.$touch();
       console.log(v$);
@@ -163,12 +169,17 @@ export default {
             state.password,
             state.question,
             state.response,
-            state.age,
-            state.picture
+            state.age
           )
         )
         .then((data) => {
           if (data.identifiers) {
+            if (state.picture.name) {
+              console.log(state.picture.name);
+
+              loginService.addPicture(state.picture, data.identifiers[0].id);
+            }
+
             router.push({
               name: "SignIn",
             });
@@ -178,7 +189,7 @@ export default {
         });
     };
 
-    return { v$, onSubmit, state };
+    return { v$, onSubmit, state, uploadImage };
   },
 };
 </script>
