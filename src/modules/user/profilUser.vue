@@ -31,7 +31,10 @@
         </ion-item>
       </div>
 
-      <!-- <div class="body" /> -->
+      <div class="right">
+        <ion-button @click.prevent="deco"> deconnexion </ion-button>
+      </div>
+
       <Tab :currentPage="'profil'" />
     </ion-content>
   </ion-page>
@@ -43,6 +46,7 @@ import Tab from "../home/components/tab.vue";
 import { IonContent, IonPage, IonItem, IonLabel } from "@ionic/vue";
 import userService from "../user/service/userService";
 import { store } from "@/store";
+import router from "@/router";
 export default defineComponent({
   name: "ProfilUser",
   components: {
@@ -58,9 +62,6 @@ export default defineComponent({
       token: store.getters.getToken,
     });
 
-    console.log(store.getters.getToken);
-    console.log(state.user);
-
     userService.getUser(state.token.id).then((data) => {
       if (data.pseudo) {
         console.log(data);
@@ -68,7 +69,14 @@ export default defineComponent({
         state.user = data;
       }
     });
-    return { state };
+
+    const deco = () => {
+      store.commit("setToken", "");
+      router.push({
+        name: "SignIn",
+      });
+    };
+    return { state, deco };
   },
 });
 </script>
@@ -82,6 +90,10 @@ export default defineComponent({
 }
 .body {
   height: 10%;
+}
+
+.right {
+  text-align: end;
 }
 
 .bodyForm {
