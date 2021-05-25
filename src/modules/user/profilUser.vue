@@ -31,13 +31,15 @@
         </ion-item>
       </div>
 
-      <div class="body" />
+      <!-- <div class="body" /> -->
+      <Tab :currentPage="'profil'" />
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
+import Tab from "../home/components/tab.vue";
 import { IonContent, IonPage, IonItem, IonLabel } from "@ionic/vue";
 import userService from "../user/service/userService";
 import { store } from "@/store";
@@ -48,6 +50,7 @@ export default defineComponent({
     IonPage,
     IonItem,
     IonLabel,
+    Tab,
   },
   setup() {
     const state = reactive({

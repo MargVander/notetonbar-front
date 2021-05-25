@@ -123,7 +123,7 @@ export default {
               "depuis le store : " + store.getters.getToken.access_token
             );
             router.push({
-              name: "ProfilUser",
+              name: "homepage",
             });
           } else {
             state.error = true;
