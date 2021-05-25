@@ -31,7 +31,10 @@
     </div>
     <form @submit.prevent="onSubmit(rating)" novalidate>
       <div>
-        <ion-textarea v-model="v$.review.$model"></ion-textarea>
+        <ion-textarea v-model="state.review"></ion-textarea>
+      </div>
+      <div v-if="v$.review.$error" class="center red">
+        Votre review doit contenir au minimum 10 caractères
       </div>
       <div class="flex validate">
         <ion-button type="submit" color="medium">Valider</ion-button>
@@ -42,17 +45,24 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import { defineComponent } from "vue";
-import { modalController, IonContent, IonText, IonTextarea, IonButton } from "@ionic/vue";
+import { defineComponent, reactive } from "vue";
+import {
+  modalController,
+  IonContent,
+  IonText,
+  IonTextarea,
+  IonButton,
+} from "@ionic/vue";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength } from "@vuelidate/validators";
 import { ref } from "vue";
 import ReviewService from "../../reviews/services/ReviewService";
+import { store } from "@/store";
 
 export default defineComponent({
   name: "AddReview",
   props: {
-    id: Number
+    id: Number,
   },
   components: {
     StarRating,
@@ -62,26 +72,36 @@ export default defineComponent({
     IonButton,
   },
   setup(props, context) {
-    const review = ref("");
+    const state = reactive({
+      review: "",
+    });
+
     const rules = {
-      review: { required, minLength: minLength(10) }
+      review: { required, minLength: minLength(10) },
     };
-    const v$ = useVuelidate(rules, { review });
-    const  onSubmit = (rating) => {
+    const v$ = useVuelidate(rules, state);
+
+    const onSubmit = (rating) => {
       console.log("submit");
-      
-        v$.value.$touch();
-        if (v$.value.$invalid) return;
-        const data = { content: review.value, rating: rating, userId: 1, barId: props.id }
-        ReviewService.createReview(data)
-        .then((data) => {
-          console.log(data)
-          if (data.status === 201) {
-            modalController.dismiss();
-          }
-        })
+
+      v$.value.$touch();
+      if (v$.value.$invalid) return;
+      console.log("ok");
+
+      const data = {
+        content: state.review,
+        rating: rating,
+        userId: store.getters.getToken.id,
+        barId: props.id,
+      };
+      ReviewService.createReview(data).then((data) => {
+        console.log(data);
+        if (data.status === 201) {
+          modalController.dismiss();
+        }
+      });
     };
-    return { v$, onSubmit };
+    return { v$, onSubmit, state };
   },
   data() {
     return {
@@ -96,7 +116,7 @@ export default defineComponent({
     setRating(rating) {
       this.rating = rating;
     },
-  }
+  },
 });
 </script>
 
@@ -112,7 +132,7 @@ textarea {
   background-color: #656669 !important;
   height: 100px;
   margin: 20px 0 !important;
-  padding: 10px!important;
+  padding: 10px !important;
 }
 .rate-stars {
   position: relative;
@@ -128,5 +148,11 @@ textarea {
 }
 .validate {
   justify-content: flex-end;
+}
+.center {
+  text-align: center;
+}
+.red {
+  color: red;
 }
 </style>

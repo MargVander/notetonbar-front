@@ -5,13 +5,13 @@
       <div class="icons">
         <ion-img
           v-if="currentPage !== 'home'"
-          @click="this.$router.push('/')"
+          @click="this.$router.push('homepage')"
           class="icon"
           src="./assets/img/home.svg"
         />
         <ion-img
           v-if="currentPage === 'home'"
-          @click="this.$router.push('/')"
+          @click="this.$router.push('homepage')"
           class="icon"
           src="./assets/img/homeactive.svg"
         />
@@ -27,8 +27,17 @@
           class="icon"
           src="./assets/img/searchactive.svg"
         />
-        <ion-img v-if="currentPage !== 'profil'" class="icon" src="./assets/img/profil.svg" />
-        <ion-img v-if="currentPage === 'profil'" class="icon" src="./assets/img/profilactive.svg" />
+        <ion-img
+          v-if="currentPage !== 'profil'"
+          class="icon"
+          src="./assets/img/profil.svg"
+          @click="this.$router.push('/ProfilUser')"
+        />
+        <ion-img
+          v-if="currentPage === 'profil'"
+          class="icon"
+          src="./assets/img/profilactive.svg"
+        />
       </div>
     </ion-tab-bar>
   </ion-tabs>
@@ -38,8 +47,8 @@
 export default {
   name: "Tab",
   props: {
-    currentPage: String
-  }
+    currentPage: String,
+  },
 };
 </script>
 

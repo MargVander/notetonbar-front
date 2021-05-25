@@ -1,9 +1,61 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
+import SignIn from '../modules/connexion/signIn.vue';
+import ForgotPassword from '../modules/connexion/forgotPassword.vue';
+import ValidateUser from '../modules/connexion/validateUser.vue';
+import NewMdp from '../modules/connexion/newMdp.vue';
+import SingUp from '../modules/connexion/signUp.vue';
+import ProfilUser from '../modules/user/profilUser.vue';
+import { store } from '@/store';
 
+// const authguard = (to, from, next) => {
+//   let token = store.getters.getToken;
+//   if (token.access_token && token.expire_in > Date.now()) {
+//     next();
+//   } else {
+//     next("/")
+//   }
+// }
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    redirect: '/signIn'
+  },
+  {
+    path: '/signIn',
+    name: 'SignIn',
+    component: SignIn,
+    props: true
+  },
+  {
+    path: '/forgotPassword',
+    name: 'ForgotPassword',
+    component: ForgotPassword
+  },
+  {
+    path: '/validateUser',
+    name: 'ValidateUser',
+    component: ValidateUser,
+    props: true
+  },
+  {
+    path: '/newMdp',
+    name: 'NewMdp',
+    component: NewMdp,
+    props: true
+  },
+  {
+    path: '/signUp',
+    name: 'SignUp',
+    component: SingUp
+  },
+  {
+    path: '/profilUser',
+    name: 'ProfilUser',
+    component: ProfilUser,
+  },
+  {
+    path: '/homepage',
     name: 'homepage',
     component: () => import('@/modules/home/homePage.vue')
   },
