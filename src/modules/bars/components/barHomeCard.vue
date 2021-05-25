@@ -33,6 +33,7 @@ export default {
     overflow-x: scroll
 }
 .barhomelist {
+  overflow: scroll;
   display: flex;
   margin: 20px 0;
 }

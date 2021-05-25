@@ -1,6 +1,6 @@
 <template>
   <ion-content>
-    <ion-list>
+    <ion-list class="barcard">
       <ion-item lines="none" v-for="bar in data" :key="bar.id">
           <ion-card @click="this.$router.push(`/bar/${bar.id}`)">
             <div
@@ -109,5 +109,8 @@ ion-card-content {
   position: absolute;
   bottom: 0;
   right: 2px;
+}
+.barcard {
+  padding-bottom: 60px;
 }
 </style>

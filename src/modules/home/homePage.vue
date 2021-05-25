@@ -52,15 +52,15 @@ export default {
 </script>
 
 <style>
-.flex {
+.home .flex {
   display: flex;
 }
-.reviews,
-.bars {
+.home .reviews,
+.home .bars {
   padding: 10px 20px 0;
 }
-.reviews ion-text,
-.bars ion-text {
+.home .reviews ion-text,
+.home .bars ion-text {
   font-weight: bold;
 }
 </style>

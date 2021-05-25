@@ -14,7 +14,6 @@ export default {
             })
     },
     async createReview(data: Record<string, any>) {
-        console.log("create review");
         return await fetch(uri + '/reviews', {
             method: 'POST',
             mode: 'cors',
