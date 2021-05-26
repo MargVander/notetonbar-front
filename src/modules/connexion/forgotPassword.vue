@@ -69,7 +69,6 @@ export default {
       mail: { required, email },
     };
     const v$ = useVuelidate(rules, state);
-    console.log("depuis le store : " + store.getters.getToken.access_token);
 
     const onSubmit = () => {
       v$.value.$touch();
@@ -78,7 +77,6 @@ export default {
       loginService
         .forgotPassword(new ForgotPasswordModel(state.mail))
         .then((value) => {
-          console.log(value);
           if (value.mail) {
             state.error = false;
             router.push({

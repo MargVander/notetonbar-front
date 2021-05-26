@@ -64,8 +64,6 @@ export default defineComponent({
 
     userService.getUser(state.token.id).then((data) => {
       if (data.pseudo) {
-        console.log(data);
-
         state.user = data;
       }
     });

@@ -8,7 +8,6 @@ const URI = 'http://localhost:3000'
 export default {
 
     signUp(state: SignUpModel) {
-        console.log(state);
         return fetch(URI + '/user', {
             method: 'POST',
             body: JSON.stringify(state),
