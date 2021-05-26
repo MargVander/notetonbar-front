@@ -6,13 +6,13 @@
           <ion-item>
             <ion-label position="floating">
               nouveau mot de passe
-              <ion-input v-model="state.password.pass" />
+              <ion-input type="hidden" v-model="state.password.pass" />
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-label position="floating">
               valider le mot de passe
-              <ion-input v-model="state.password.pass2" />
+              <ion-input type="hidden" v-model="state.password.pass2" />
             </ion-label>
           </ion-item>
           <div class="center">
@@ -83,15 +83,12 @@ export default {
       v$.value.$touch();
 
       if (v$.value.$invalid) return;
-      console.log(v$);
 
       loginService
         .newMdp(
           new NewMdpModel(state.mail, state.password.pass, state.response)
         )
         .then((data) => {
-          console.log(data);
-
           if (data.response) {
             router.push({
               name: "SignIn",

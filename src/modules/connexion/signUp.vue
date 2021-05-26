@@ -134,7 +134,7 @@ export default {
     const rules = {
       pseudo: { required },
       mail: { email, required },
-      password: { required, minLength: minLength(6) },
+      password: { required, minLength: minLength(4) },
       question: { required },
       response: { required },
       age: { integer, minValue: minValue(0), maxValue: maxValue(120) },
@@ -145,20 +145,16 @@ export default {
 
     loginService.getQuestion().then((response) => {
       if (response.Q1) {
-        console.log(response);
         state.questions = response;
       }
     });
 
     const uploadImage = (event: any) => {
-      console.log(event.target.files);
-
       state.picture = event.target.files[0];
     };
 
     const onSubmit = () => {
       v$.value.$touch();
-      console.log(v$);
       if (v$.value.$invalid) return;
 
       loginService
@@ -175,8 +171,6 @@ export default {
         .then((data) => {
           if (data.identifiers) {
             if (state.picture.name) {
-              console.log(state.picture.name);
-
               loginService.addPicture(state.picture, data.identifiers[0].id);
             }
 
