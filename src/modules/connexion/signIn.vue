@@ -96,8 +96,8 @@ export default {
   },
   setup() {
     const state = reactive({
-      mail: "cyriak@mail.com",
-      password: "root",
+      mail: "",
+      password: "",
       error: false,
       errorMessage: "Identifiants incorrects",
     });

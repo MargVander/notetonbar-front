@@ -61,9 +61,9 @@ export default {
   },
   setup() {
     const state = reactive({
-      mail: "margaux@mail.com",
+      mail: "",
       error: false,
-      errorMessage: "Adresse mail inconnue",
+      errorMessage: "",
     });
     const rules = {
       mail: { required, email },

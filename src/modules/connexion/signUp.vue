@@ -119,16 +119,16 @@ export default {
   },
   setup() {
     const state = reactive({
-      pseudo: "marco",
-      mail: "marco@mail.com",
-      password: "123456",
+      pseudo: "",
+      mail: "",
+      password: "",
       age: 0,
       picture: File,
       question: "",
-      response: "test",
+      response: "",
       questions: undefined,
       error: false,
-      errorMessage: "mail déjà utilisé",
+      errorMessage: "",
     });
 
     const rules = {
