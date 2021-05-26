@@ -17,6 +17,20 @@ export default {
                 return datas
             })
     },
+    async fetchBarsByPopularity(limit = 0) {
+        return await fetch(uri + '/bars/bypopularity?limit=' + limit, {
+            method: 'GET',
+            headers: {
+                "Authorization": `bearer ${store.state.bearer}`,
+            },
+        })
+            .then((res) => {
+                return res.json()
+            })
+            .then((datas) => {
+                return datas
+            })
+    },
     async fetchBar(id: number) {
         return await fetch(uri + '/bars/' + id, {
             method: 'GET',
