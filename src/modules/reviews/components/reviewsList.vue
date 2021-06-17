@@ -17,7 +17,7 @@
           <ion-text class="time">{{parseDate(review.date)}}</ion-text>
         </div>
         <div>
-          <ion-text>{{review.content}}</ion-text>
+          <ion-text class="content">{{review.content}}</ion-text>
         </div>
         <div class="review-bottom">
           <div class="flex user-info">

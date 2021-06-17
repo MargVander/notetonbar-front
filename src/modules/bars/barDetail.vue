@@ -42,7 +42,7 @@
           <ion-img v-if="bar.happy_hour" class="bar-icon" src="./assets/img/happyhour.svg" />
           <ion-text>{{bar.happy_hour}}</ion-text>
         </div>
-        <ion-img @click="openModal" class="bar-icon" src="./assets/img/clock.svg" />
+        <ion-img @click="openModal" class="openmodal bar-icon" src="./assets/img/clock.svg" />
       </div>
       <div class="description">
         <ion-text>{{bar.description}}</ion-text>
@@ -88,6 +88,12 @@ export default {
     StarRating,
     ReviewsList,
     Tab,
+    IonContent,
+    IonSlides,
+    IonSlide,
+    IonText,
+    IonTitle,
+    IonImg
   },
   data() {
     return {
