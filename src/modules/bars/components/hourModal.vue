@@ -60,10 +60,17 @@
 
 <script>
 import { defineComponent } from "vue";
-import { modalController } from "@ionic/vue";
+import { modalController, IonContent, IonItem, IonList, IonLabel, IonText } from "@ionic/vue";
 
 export default defineComponent({
   name: "HourModal",
+  components: {
+    IonContent,
+    IonItem,
+    IonList,
+    IonLabel,
+    IonText
+  },
   props: {
     hours: { type: Object, default: null }
   },

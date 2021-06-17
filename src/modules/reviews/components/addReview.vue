@@ -82,6 +82,8 @@ export default defineComponent({
     const v$ = useVuelidate(rules, state);
 
     const onSubmit = (rating) => {
+      console.log('SUBMIT');
+      
       v$.value.$touch();
       if (v$.value.$invalid) return;
       const data = {
