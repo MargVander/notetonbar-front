@@ -1,5 +1,7 @@
 import { store } from '@/store';
-const uri = "http://localhost:3000";
+import config from '../../../config'
+
+const uri = config.uri;
 
 export default {
     fetchReviews(limit = 0) {

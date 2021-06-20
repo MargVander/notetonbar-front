@@ -1,6 +1,7 @@
 import { store } from "@/store";
+import config from '../../../config'
 
-const URI = 'http://localhost:3000';
+const URI = config.uri;
 export default {
     getUser(id: number) {
         return fetch(URI + '/user/' + id, {

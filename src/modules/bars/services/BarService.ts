@@ -1,6 +1,7 @@
 import { store } from "@/store";
+import config from '../../../config'
 
-const uri = "http://localhost:3000";
+const uri = config.uri;
 
 export default {
     async fetchBars(limit = 0) {

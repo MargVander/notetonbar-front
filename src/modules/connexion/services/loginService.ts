@@ -3,8 +3,10 @@ import LoginModel from '../models/loginModel';
 import NewMdpModel from '../models/newMdpModel';
 import SignUpModel from '../models/signUpModel';
 import ValidateUserModel from '../models/validateUserModel';
+import config from '../../../config'
 
-const URI = 'http://localhost:3000'
+const URI = config.uri
+
 export default {
 
     signUp(state: SignUpModel) {
@@ -62,6 +64,8 @@ export default {
     },
 
     login(state: LoginModel) {
+        console.log(config);
+        
         return fetch(URI + '/auth/login', {
             method: 'POST',
             body: JSON.stringify(state),
